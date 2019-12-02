@@ -16,18 +16,17 @@ FLAG = -Werror -Wextra -Wall
 
 SRC = main.c
 
+
 OBJ = main.o
 
-BIN = ../libft/libft.a
 
-MLX_PATH = /usr/local/
-
+BIN = ../libft/libft.a ../minilibx_macos/libmlx.a
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	gcc $(FLAGS) -c $(SRC)
-	gcc $(FLAGS) $(OBJ) $(BIN) -lmlx  -L  $(MLX_PATH)lib/ -I $(MLX_PATH)include -framework OpenGL -framework AppKit -o $(NAME)	
+	gcc $(FLAGS) $(OBJ) $(BIN) -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
 	rm -f $(OBJ)

@@ -13,7 +13,7 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # include <math.h>
-# include <mlx.h>
+# include "../minilibx_macos/mlx.h"
 # include "../libft/libft.h"
 
 typedef struct		s_win
@@ -36,6 +36,23 @@ typedef struct		s_map
 	float	n;
 
 }					t_map;
+
+typedef struct		m_mdb
+{
+	int		i;
+	int		j;
+	int		k;
+	int		max;
+	int		pix;
+	int		color;
+	float	a;
+	float	b;
+	float	aval;
+	float	bval;
+	float	ab;
+	float	bb;
+
+}					t_mdb;
 
 void            putimagein(int x, int y, int color, t_win *w);
 void			init(int n);

@@ -54,57 +54,44 @@ void	putimagein(int x, int y, int color, t_win *w)
 	if (x < 800 && y < 800 && x > 0 && y > 0)
 	{
 		i = (x * w->x / 8) + (y * w->size_line);
-		w->img_data[i] = color * 25;
-		w->img_data[++i] = color * 26;
-		w->img_data[++i] = color * 27;
+		w->img_data[i] = color * 10;
+		w->img_data[++i] = color;
+		w->img_data[++i] = color * 30;
 		w->img_data[++i] = 0;
 	}
 }
 
 void	draw(int x, int y, t_win *w)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		max;
-	int		pix;
-	int		color;
-	float	a;
-	float	b;
-	float	aval;
-	float	bval;
-	float	ab;
-	float	bb;
+	t_mdb	mdb;
 
-	i = 0;
-	max = 1000;
-	while (i < x)
+	mdb.i = 0;
+	mdb.max = 1000;
+	while (mdb.i++ < x)
 	{
-		j = 0;
-		while(j < y)
+		mdb.j = 0;
+		while(mdb.j++ < y)
 		{
-			a = map(i, 0, x, -2, 2);
-			b = map(j, 0, y, -2, 2);
-			aval = a;
-			bval = b;
-			k = 0;
-			while (k < max)
+			mdb.a = map(mdb.i, 0, x, -2, 2);
+			mdb.b = map(mdb.j, 0, y, -2, 2);
+			mdb.aval = mdb.a;
+			mdb.bval = mdb.b;
+			mdb.k = 0;
+			while (mdb.k < mdb.max)
 			{
-				ab = a * a - b * b;
-				bb = 2 * a * b;
-				a = ab + aval;
-				b = bb + bval;
-				if (a * a + b * b > 4)
+				mdb.ab = mdb.a * mdb.a - mdb.b * mdb.b;
+				mdb.bb = 2 * mdb.a * mdb.b;
+				mdb.a = mdb.ab + mdb.aval;
+				mdb.b = mdb.bb + mdb.bval;
+				if (mdb.a * mdb.a + mdb.b * mdb.b > 4)
 					break;
-				k++;
+				mdb.k++;
 			}
-			color = k;
-			if (k == max)
-				color = 0;
-			putimagein(i, j, color, w);
-			j++;
+			mdb.color = mdb.k;
+			if (mdb.k == mdb.max)
+				mdb.color = 0;
+			putimagein(mdb.i, mdb.j, mdb.color, w);
 		}
-		i++;
 	}
 }
 
