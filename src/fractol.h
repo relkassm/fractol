@@ -16,50 +16,53 @@
 # include "../minilibx_macos/mlx.h"
 # include "../libft/libft.h"
 
-typedef struct		s_win
+typedef struct	s_win
 {
-    void	*mlx_ptr;
+	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
-    char	*img_data;
-    int		x;
+	char	*img_data;
+	int		x;
+	int		y;
+	int		x0;
+	int		y0;
 	int		size_line;
 	int		end;
-}                   t_win;
-
-typedef struct		s_map
-{
-	float	start1;
-	float	start2;
-	float	end1;
-	float	end2;
-	float	n;
-
-}					t_map;
-
-typedef struct		m_mdb
-{
 	int		i;
 	int		j;
 	int		k;
 	int		max;
 	int		pix;
 	int		color;
+	int		xy;
+	int		zm;
 	float	a;
 	float	b;
 	float	aval;
 	float	bval;
 	float	ab;
 	float	bb;
+}				t_win;
 
-}					t_mdb;
+typedef struct	s_map
+{
+	float	start1;
+	float	start2;
+	float	end1;
+	float	end2;
+	float	n;
+}				t_map;
 
-void            putimagein(int x, int y, int color, t_win *w);
 void			init(int n);
-void			draw(int x, int y, t_win *w);
-float			map(float n, float start1, float end1, float start2, float end2);
+void			putimagein(int x, int y, int color, t_win *w);
+float			map(float n, float start, float end);
 
+void			mandelbrot(t_win *w);
+void			process(t_win *w);
 
-
+int				mouse_press(int b, int x, int y, t_win *w);
+int				mouse_move(int x, int y, t_win *w);
+void			keypart(int key, t_win *w, int *a);
+int				keypress(int key, t_win *w);
 
 #endif

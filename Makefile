@@ -12,7 +12,7 @@
 
 NAME = fractol
 
-SRCOBJ = src/main.o
+SRCOBJ = src/main.o src/mandelbrot.o src/julia.o src/events.o
 
 LIBOBJ = 	libft/ft_atoi.o       libft/ft_lstnew.o     libft/ft_putendl_fd.o libft/ft_strequ.o     libft/ft_strnew.o	\
 			libft/ft_bzero.o      libft/ft_memalloc.o   libft/ft_putnbr.o     libft/ft_striter.o    libft/ft_strnstr.o	\

@@ -14,10 +14,10 @@ NAME = ../fractol
 
 FLAG = -Werror -Wextra -Wall
 
-SRC = main.c
+SRC = main.c mandelbrot.c julia.c events.c
 
 
-OBJ = main.o
+OBJ = main.o mandelbrot.o julia.o events.o
 
 
 BIN = ../libft/libft.a ../minilibx_macos/libmlx.a
