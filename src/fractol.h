@@ -22,10 +22,9 @@ typedef struct	s_win
 	void	*win_ptr;
 	void	*img_ptr;
 	char	*img_data;
+	int		map;
 	int		x;
 	int		y;
-	int		x0;
-	int		y0;
 	int		size_line;
 	int		end;
 	int		i;
@@ -34,31 +33,33 @@ typedef struct	s_win
 	int		max;
 	int		pix;
 	int		color;
-	int		xy;
-	int		zm;
+	int		height;
+	int		iter;
+	float	zm;
 	float	a;
 	float	b;
 	float	aval;
 	float	bval;
-	float	ab;
-	float	bb;
+	float	real;
+	float	imgn;
+	float	s2;
+	float	e2;
+	float	x0;
+	float	y0;
+	float	julx;
+	float	july;
+	float	mousex;
+	float	mousey;
 }				t_win;
-
-typedef struct	s_map
-{
-	float	start1;
-	float	start2;
-	float	end1;
-	float	end2;
-	float	n;
-}				t_map;
 
 void			init(int n);
 void			putimagein(int x, int y, int color, t_win *w);
-float			map(float n, float start, float end);
 
 void			mandelbrot(t_win *w);
-void			process(t_win *w);
+void			process_mandelbrot(t_win *w);
+
+void			julia(t_win *w);
+void			process_julia(t_win *w);
 
 int				mouse_press(int b, int x, int y, t_win *w);
 int				mouse_move(int x, int y, t_win *w);

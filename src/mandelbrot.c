@@ -15,32 +15,33 @@
 void	mandelbrot(t_win *w)
 {
 	w->i = 0;
-	w->max = 100;
-	w->xy = 800 + w->zm;
-	while (w->i++ < w->xy)
+	w->max = w->iter;
+	w->height = 800;
+	w->map = 2;
+	while (w->i++ < w->height)
 	{
 		w->j = 0;
-		while (w->j++ < w->xy)
+		while (w->j++ < w->height)
 		{
-			w->a = map(w->i, w->x0, w->xy + w->x0);
-			w->b = map(w->j, w->y0, w->xy + w->y0);
+			w->a = (((w->i - w->x0) / (w->height)) * (w->e2 - w->s2) + w->s2);
+			w->b = (((w->j - w->y0) / (w->height)) * (w->e2 - w->s2) + w->s2);
 			w->aval = w->a;
 			w->bval = w->b;
 			w->k = 0;
-			process(w);
+			process_mandelbrot(w);
 			putimagein(w->i, w->j, w->color, w);
 		}
 	}
 }
 
-void	process(t_win *w)
+void	process_mandelbrot(t_win *w)
 {
 	while (w->k < w->max)
 	{
-		w->ab = w->a * w->a - w->b * w->b;
-		w->bb = 2 * w->a * w->b;
-		w->a = w->ab + w->aval;
-		w->b = w->bb + w->bval;
+		w->real = w->a * w->a - w->b * w->b;
+		w->imgn = 2 * w->a * w->b;
+		w->a = w->real + w->aval;
+		w->b = w->imgn + w->bval;
 		if (w->a * w->a + w->b * w->b > 4)
 			break ;
 		w->k++;

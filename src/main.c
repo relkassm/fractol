@@ -38,25 +38,28 @@ int		main(int ac, char **av)
 void	init(int n)
 {
 	t_win	w;
-	t_map	m;
 
-	w.xy = 800;
+	w.map = n;
+	w.height = 800;
 	w.zm = 0;
+	w.iter = 50;
 	w.x0 = 0;
 	w.y0 = 0;
+	w.s2 = -2;
+	w.e2 = 2;
 	w.mlx_ptr = mlx_init();
-	w.win_ptr = mlx_new_window(w.mlx_ptr, w.xy, w.xy, "Fractol");
-	w.img_ptr = mlx_new_image(w.mlx_ptr, w.xy, w.xy);
+	w.win_ptr = mlx_new_window(w.mlx_ptr, w.height, w.height, "Fractol");
+	w.img_ptr = mlx_new_image(w.mlx_ptr, w.height, w.height);
 	w.img_data = mlx_get_data_addr(w.img_ptr, &w.x, &w.size_line, &w.end);
 	mlx_hook(w.win_ptr, 2, 0, keypress, &w);
 	mlx_hook(w.win_ptr, 4, 0, mouse_press, &w);
 	mlx_hook(w.win_ptr, 6, 0, mouse_move, &w);
 	if (n == 1)
-		mandelbrot(&w);
+		julia(&w);
 	if (n == 2)
 		mandelbrot(&w);
 	if (n == 3)
-		mandelbrot(&w);
+		julia(&w);
 	mlx_put_image_to_window(w.mlx_ptr, w.win_ptr, w.img_ptr, 0, 0);
 	mlx_loop(w.mlx_ptr);
 }
@@ -68,14 +71,9 @@ void	putimagein(int x, int y, int color, t_win *w)
 	if (x < 800 && y < 800 && x > 0 && y > 0)
 	{
 		i = (x * w->x / 8) + (y * w->size_line);
-		w->img_data[i] = color * 5;
+		w->img_data[i] = color * 10;
 		w->img_data[++i] = color;
-		w->img_data[++i] = color * 10;
+		w->img_data[++i] = color * 50;
 		w->img_data[++i] = 0;
 	}
-}
-
-float	map(float n, float start, float end)
-{
-	return (((float)(n - start) / (float)(end - start)) * 4 - 2);
 }
