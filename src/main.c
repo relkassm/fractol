@@ -41,10 +41,14 @@ void	init(int n)
 
 	w.map = n;
 	w.height = 800;
-	w.zm = 0;
+	w.zm = 1;
 	w.iter = 10;
 	w.x0 = 0;
 	w.y0 = 0;
+	w.start_x = 0;
+	w.start_y = 0;
+	w.end_x = 800;
+	w.end_y = 800;
 	w.s2 = -2;
 	w.e2 = 2;
 	w.mlx_ptr = mlx_init();
@@ -76,4 +80,23 @@ void	putimagein(int x, int y, int color, t_win *w)
 		w->img_data[++i] = color * 20;
 		w->img_data[++i] = 0;
 	}
+}
+
+float interpolate(float start, float end, float interpolation)
+{
+	float value;
+
+	value = start + ((end - start) * interpolation);
+    return (value);
+}
+
+void zoom(t_win* w, float mouse_x, float mouse_y, float zoomFactor)
+{
+	float zoom_value;
+	zoom_value = 1.0 / zoomFactor;
+	w->end_x = interpolate(w->mouse_x, w->end_x, zoom_value);
+	w->end_y = interpolate(w->mouse_y, w->end_y, zoom_value);
+	w->start_x = interpolate(w->mouse_x, w->start_x, zoom_value);
+	w->start_y = interpolate(w->mouse_y, w->start_y, zoom_value);
+	
 }

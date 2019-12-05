@@ -42,18 +42,24 @@ typedef struct	s_win
 	float	bval;
 	float	real;
 	float	imgn;
+	float	start_x;
+	float	start_y;
+	float	end_x;
+	float	end_y;
 	float	s2;
 	float	e2;
 	float	x0;
 	float	y0;
 	float	julx;
 	float	july;
-	float	mousex;
-	float	mousey;
+	float	mouse_x;
+	float	mouse_y;
 }				t_win;
 
 void			init(int n);
 void			putimagein(int x, int y, int color, t_win *w);
+float			interpolate(float start, float end, float interpolation);
+void			zoom(t_win* w, float mouse_x, float mouse_y, float zoomFactor);
 
 void			mandelbrot(t_win *w);
 void			process_mandelbrot(t_win *w);

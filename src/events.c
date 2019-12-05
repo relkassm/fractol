@@ -14,31 +14,22 @@
 
 int		mouse_press(int button, int x, int y, t_win *w)
 {
+	w->mouse_x = (float)x / (800 / (w->end_x - w->start_x)) - w->start_x;
+	w->mouse_y = (float)y / (800 / (w->end_y - w->start_y)) - w->start_y;
+	//printf("%f | %f\n", w->mouse_x, w->mouse_y);	
 	if (button == 4)
-	{
-		if (w->zm < 1.50)
-			w->zm += 0.1;
-		else if (w->zm < 1.75)
-			w->zm += 0.01;
-		else if (w->zm < 1.85)
-			w->zm += 0.001;
-		else if (w->zm < 1.95)
-			w->zm += 0.0001;
-		else if (w->zm < 2)
-			w->zm += 0.00001;
-		w->iter += 1;
-	}
-	else if (button == 5 && w->zm > 0)
-	{
-		w->zm -= 0.01;
-	}
+		w->zm = 1.01;
+	else if (button == 5)
+		w->zm = 1/1.01;
+	else
+		return (0);
+	zoom(w, w->mouse_x, w->mouse_y, w->zm);	
 	if (w->map == 1)
 		julia(w);
 	else if (w->map == 2)
 		mandelbrot(w);
 	else if (w->map == 3)
 		burningship(w);
-	printf("%f\n", w->zm);
 	mlx_put_image_to_window(w->mlx_ptr, w->win_ptr, w->img_ptr, 0, 0);
 	return (0);
 }
@@ -71,6 +62,8 @@ int		keypress(int key, t_win *w)
 		w->iter -= 10;
 	else if (key == 53)
 		exit(0);
+	else
+		return (0);
 	ft_bzero(w->img_data, 800 * 800 * 4);
 	if (w->map == 1)
 		julia(w);

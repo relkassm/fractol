@@ -16,7 +16,6 @@ void	julia(t_win *w)
 {
 	w->i = 0;
 	w->max = w->iter;
-	w->height = 800;
 	w->map = 1;
 	while (w->i++ < w->height)
 	{
