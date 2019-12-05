@@ -34,7 +34,7 @@ typedef struct	s_win
 	int		pix;
 	int		color;
 	int		height;
-	int		iter;
+	float	iter;
 	float	zm;
 	float	a;
 	float	b;
@@ -60,6 +60,10 @@ void			process_mandelbrot(t_win *w);
 
 void			julia(t_win *w);
 void			process_julia(t_win *w);
+
+void			burningship(t_win *w);
+void			process_burningship(t_win *w);
+float   		ft_abs(float n);
 
 int				mouse_press(int b, int x, int y, t_win *w);
 int				mouse_move(int x, int y, t_win *w);

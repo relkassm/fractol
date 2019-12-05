@@ -6,7 +6,7 @@
 #    By: relkassm <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/15 13:49:30 by relkassm          #+#    #+#              #
-#    Updated: 2019/11/28 15:33:01 by relkassm         ###   ########.fr        #
+#    Updated: 2019/12/04 22:23:48 by relkassm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,10 @@ NAME = ../fractol
 
 FLAG = -Werror -Wextra -Wall
 
-SRC = main.c mandelbrot.c julia.c events.c
+SRC = main.c mandelbrot.c julia.c events.c burning_ship.c
 
 
-OBJ = main.o mandelbrot.o julia.o events.o
+OBJ = main.o mandelbrot.o julia.o events.o burning_ship.o
 
 
 BIN = ../libft/libft.a ../minilibx_macos/libmlx.a

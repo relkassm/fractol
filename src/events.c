@@ -15,24 +15,36 @@
 int		mouse_press(int button, int x, int y, t_win *w)
 {
 	if (button == 4)
-		w->zm += 20;
+	{
+		if (w->zm < 1.50)
+			w->zm += 0.1;
+		else if (w->zm < 1.75)
+			w->zm += 0.01;
+		else if (w->zm < 1.85)
+			w->zm += 0.001;
+		else if (w->zm < 1.95)
+			w->zm += 0.0001;
+		else if (w->zm < 2)
+			w->zm += 0.00001;
+		w->iter += 1;
+	}
 	else if (button == 5 && w->zm > 0)
-		w->zm -= 20;
-	ft_bzero(w->img_data, 800 * 800 * 4);
+	{
+		w->zm -= 0.01;
+	}
 	if (w->map == 1)
 		julia(w);
 	else if (w->map == 2)
 		mandelbrot(w);
 	else if (w->map == 3)
-		julia(w);
+		burningship(w);
+	printf("%f\n", w->zm);
 	mlx_put_image_to_window(w->mlx_ptr, w->win_ptr, w->img_ptr, 0, 0);
 	return (0);
 }
 
 int		mouse_move(int x, int y, t_win *w)
 {
-	//w->mousex = ((float)x / 800) * 2 - 1;
-	//w->mousey = ((float)y / 800) * 2 - 1;
 	if (x >= 0 && x <= 800 && y >= 0 && y <= 800 && w->map == 1)
 	{
 		w->julx = ((float)x / 800) * 2 - 1;
@@ -54,9 +66,9 @@ int		keypress(int key, t_win *w)
 	else if (key == 126)
 		w->y0 -= 20;
 	else if (key == 69)
-		w->iter += 50;
-	else if (key == 78 && w->iter > 50)
-		w->iter -= 50;
+		w->iter += 10;
+	else if (key == 78 && w->iter > 10)
+		w->iter -= 10;
 	else if (key == 53)
 		exit(0);
 	ft_bzero(w->img_data, 800 * 800 * 4);
@@ -65,7 +77,7 @@ int		keypress(int key, t_win *w)
 	else if (w->map == 2)
 		mandelbrot(w);
 	else if (w->map == 3)
-		julia(w);
+		burningship(w);
 	mlx_put_image_to_window(w->mlx_ptr, w->win_ptr, w->img_ptr, 0, 0);
 	return (0);
 }

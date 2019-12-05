@@ -21,17 +21,17 @@ int		main(int ac, char **av)
 		else if (ft_strcmp(av[1], "mandelbrot") == 0 ||\
 			ft_strcmp(av[1], "2") == 0)
 			init(2);
-		else if (ft_strcmp(av[1], "yikes") == 0 || ft_strcmp(av[1], "3") == 0)
+		else if (ft_strcmp(av[1], "burning ship") == 0 || ft_strcmp(av[1], "3") == 0)
 			init(3);
 		else
 		{
 			ft_putendl("Chose one of the following types of fractals:\
-			\n 1 - Julia\n 2 - Mandelbrot\n 3 - Yikes");
+			\n 1 - Julia\n 2 - Mandelbrot\n 3 - Burning Ship");
 		}
 	}
 	else
 		ft_putendl("usage :  ./fracol [Fractal's Type]\
-		\n 1 - Julia\n 2 - Mandelbrot\n 3 - Yikes");
+		\n 1 - Julia\n 2 - Mandelbrot\n 3 - Burning Ship");
 	return (0);
 }
 
@@ -42,7 +42,7 @@ void	init(int n)
 	w.map = n;
 	w.height = 800;
 	w.zm = 0;
-	w.iter = 50;
+	w.iter = 10;
 	w.x0 = 0;
 	w.y0 = 0;
 	w.s2 = -2;
@@ -59,7 +59,7 @@ void	init(int n)
 	if (n == 2)
 		mandelbrot(&w);
 	if (n == 3)
-		julia(&w);
+		burningship(&w);
 	mlx_put_image_to_window(w.mlx_ptr, w.win_ptr, w.img_ptr, 0, 0);
 	mlx_loop(w.mlx_ptr);
 }
@@ -71,9 +71,9 @@ void	putimagein(int x, int y, int color, t_win *w)
 	if (x < 800 && y < 800 && x > 0 && y > 0)
 	{
 		i = (x * w->x / 8) + (y * w->size_line);
-		w->img_data[i] = color * 10;
+		w->img_data[i] = color * 80;
 		w->img_data[++i] = color;
-		w->img_data[++i] = color * 50;
+		w->img_data[++i] = color * 20;
 		w->img_data[++i] = 0;
 	}
 }
