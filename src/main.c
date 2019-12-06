@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	if (ac == 2)
 	{
@@ -21,7 +21,8 @@ int		main(int ac, char **av)
 		else if (ft_strcmp(av[1], "mandelbrot") == 0 ||\
 			ft_strcmp(av[1], "2") == 0)
 			init(2);
-		else if (ft_strcmp(av[1], "burning ship") == 0 || ft_strcmp(av[1], "3") == 0)
+		else if (ft_strcmp(av[1], "burning ship") == 0 ||\
+			ft_strcmp(av[1], "3") == 0)
 			init(3);
 		else
 		{
@@ -35,13 +36,12 @@ int		main(int ac, char **av)
 	return (0);
 }
 
-void	init(int n)
+void		init(int n)
 {
 	t_win	w;
 
 	w.map = n;
 	w.height = 800;
-	w.zm = 1;
 	w.iter = 10;
 	w.x0 = 0;
 	w.y0 = 0;
@@ -51,6 +51,17 @@ void	init(int n)
 	w.end_y = 800;
 	w.s2 = -2;
 	w.e2 = 2;
+	w.julia_pause = 0;
+	w.julx = 0;
+	w.july = 0;
+	w.red = 5;
+	w.green = 5;
+	w.blue = 5;
+	mlx_start(n, w);
+}
+
+void		mlx_start(int n, t_win w)
+{
 	w.mlx_ptr = mlx_init();
 	w.win_ptr = mlx_new_window(w.mlx_ptr, w.height, w.height, "Fractol");
 	w.img_ptr = mlx_new_image(w.mlx_ptr, w.height, w.height);
@@ -68,37 +79,16 @@ void	init(int n)
 	mlx_loop(w.mlx_ptr);
 }
 
-void	putimagein(int x, int y, int color, t_win *w)
+void		putimagein(int x, int y, int color, t_win *w)
 {
 	int i;
 
 	if (x < 800 && y < 800 && x > 0 && y > 0)
 	{
 		i = (x * w->x / 8) + (y * w->size_line);
-		w->img_data[i] = color * 80;
-		w->img_data[++i] = color;
-		w->img_data[++i] = color * 20;
+		w->img_data[i] = color * w->blue;
+		w->img_data[++i] = color * w->green;
+		w->img_data[++i] = color * w->red;
 		w->img_data[++i] = 0;
 	}
-}
-
-float interpolate(float start, float end, float zoom)
-{
-	float value;
-
-	value = start + ((end - start) * zoom);
-    return (value);
-}
-
-void zoom(t_win* w, float mouse_x, float mouse_y, float zoom)
-{
-	float	d_x;
-	float	d_y;
-
-	d_x = w->start_x + ((float)mouse_x * (w->end_x - w->start_x) / 800);
-	d_y = w->start_y + ((float)mouse_y * (w->end_y - w->start_y) / 800);
-	w->start_x = interpolate(0, w->start_x, zoom);
-	w->end_x = interpolate(0, w->end_x, zoom);
-	w->start_y = interpolate(0, w->start_y, zoom);
-	w->end_y = interpolate(0, w->end_y, zoom);
 }

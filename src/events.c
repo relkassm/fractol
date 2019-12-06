@@ -16,12 +16,12 @@ int		mouse_press(int button, int x, int y, t_win *w)
 {
 	if (button == 4 && w->iter > 2)
 	{
-		zoom(w, x, y, (w->iter)/(w->iter + 1));
+		zoom(w, x, y, 0.9);
 		w->iter -= 1;
 	}
 	else if (button == 5)
 	{
-		zoom(w, x, y, 1 / ((w->iter)/(w->iter + 1)));
+		zoom(w, x, y, 1 / 0.9);
 		w->iter += 1;
 	}
 	else
@@ -38,10 +38,11 @@ int		mouse_press(int button, int x, int y, t_win *w)
 
 int		mouse_move(int x, int y, t_win *w)
 {
-	if (x >= 0 && x <= 800 && y >= 0 && y <= 800 && w->map == 1)
+	if (x >= 0 && x <= 800 && y >= 0 && y <= 800\
+	&& w->map == 1 && (w->julia_pause % 2) == 0)
 	{
-		w->julx = ((float)x / 800) * 2 - 1;
-		w->july = ((float)y / 800) * 2 - 1;
+		w->julx = ((long double)x / 800) * 2 - 1;
+		w->july = ((long double)y / 800) * 2 - 1;
 		julia(w);
 		mlx_put_image_to_window(w->mlx_ptr, w->win_ptr, w->img_ptr, 0, 0);
 	}
@@ -58,15 +59,26 @@ int		keypress(int key, t_win *w)
 		w->x0 -= 20;
 	else if (key == 126)
 		w->y0 -= 20;
-	else if (key == 69)
-		w->iter += 10;
-	else if (key == 78 && w->iter > 10)
-		w->iter -= 10;
+	else if (key == 7)
+		init(w->map);
+	else if (key == 15)
+		w->red += 10;
+	else if (key == 5)
+		w->green += 10;
+	else if (key == 11)
+		w->blue += 10;
+	else if (key == 35)
+		w->julia_pause += 1;
 	else if (key == 53)
 		exit(0);
 	else
 		return (0);
-	ft_bzero(w->img_data, 800 * 800 * 4);
+	fract(w);
+	return (0);
+}
+
+void	fract(t_win *w)
+{
 	if (w->map == 1)
 		julia(w);
 	else if (w->map == 2)
@@ -74,5 +86,4 @@ int		keypress(int key, t_win *w)
 	else if (w->map == 3)
 		burningship(w);
 	mlx_put_image_to_window(w->mlx_ptr, w->win_ptr, w->img_ptr, 0, 0);
-	return (0);
 }
