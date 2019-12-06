@@ -23,8 +23,8 @@ void	mandelbrot(t_win *w)
 		w->j = 0;
 		while (w->j++ < w->height)
 		{
-			w->a = ((w->i - w->start_x /*- w->x0*/) / (w->end_x - w->start_x)) * ((w->e2) - (w->s2)) + (w->s2);
-			w->b = ((w->j - w->start_y /*- w->y0*/) / (w->end_y - w->start_y)) * ((w->e2) - (w->s2)) + (w->s2);
+			w->a = ((w->i - w->start_x - w->x0) / (w->end_x - w->start_x)) * ((w->e2) - (w->s2)) + (w->s2);
+			w->b = ((w->j - w->start_y - w->y0) / (w->end_y - w->start_y)) * ((w->e2) - (w->s2)) + (w->s2);
 			w->aval = w->a;
 			w->bval = w->b;
 			w->k = 0;

@@ -82,21 +82,23 @@ void	putimagein(int x, int y, int color, t_win *w)
 	}
 }
 
-float interpolate(float start, float end, float interpolation)
+float interpolate(float start, float end, float zoom)
 {
 	float value;
 
-	value = start + ((end - start) * interpolation);
+	value = start + ((end - start) * zoom);
     return (value);
 }
 
-void zoom(t_win* w, float mouse_x, float mouse_y, float zoomFactor)
+void zoom(t_win* w, float mouse_x, float mouse_y, float zoom)
 {
-	float zoom_value;
-	zoom_value = 1.0 / zoomFactor;
-	w->end_x = interpolate(w->mouse_x, w->end_x, zoom_value);
-	w->end_y = interpolate(w->mouse_y, w->end_y, zoom_value);
-	w->start_x = interpolate(w->mouse_x, w->start_x, zoom_value);
-	w->start_y = interpolate(w->mouse_y, w->start_y, zoom_value);
-	
+	float	d_x;
+	float	d_y;
+
+	d_x = w->start_x + ((float)mouse_x * (w->end_x - w->start_x) / 800);
+	d_y = w->start_y + ((float)mouse_y * (w->end_y - w->start_y) / 800);
+	w->start_x = interpolate(0, w->start_x, zoom);
+	w->end_x = interpolate(0, w->end_x, zoom);
+	w->start_y = interpolate(0, w->start_y, zoom);
+	w->end_y = interpolate(0, w->end_y, zoom);
 }

@@ -14,16 +14,18 @@
 
 int		mouse_press(int button, int x, int y, t_win *w)
 {
-	w->mouse_x = (float)x / (800 / (w->end_x - w->start_x)) - w->start_x;
-	w->mouse_y = (float)y / (800 / (w->end_y - w->start_y)) - w->start_y;
-	//printf("%f | %f\n", w->mouse_x, w->mouse_y);	
-	if (button == 4)
-		w->zm = 1.01;
+	if (button == 4 && w->iter > 2)
+	{
+		zoom(w, x, y, (w->iter)/(w->iter + 1));
+		w->iter -= 1;
+	}
 	else if (button == 5)
-		w->zm = 1/1.01;
+	{
+		zoom(w, x, y, 1 / ((w->iter)/(w->iter + 1)));
+		w->iter += 1;
+	}
 	else
 		return (0);
-	zoom(w, w->mouse_x, w->mouse_y, w->zm);	
 	if (w->map == 1)
 		julia(w);
 	else if (w->map == 2)
